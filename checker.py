@@ -9,7 +9,7 @@ import time
 import pandas as pd
 import random
 
-# ✅ Setup Chrome WebDriver (Ensure chromedriver.exe matches your Chrome version)
+# Setup Chrome WebDriver (Ensure chromedriver.exe matches your Chrome version)
 chromedriver_path = "chromedriver.exe"  # Update if needed
 options = Options()
 options.add_argument("--disable-blink-features=AutomationControlled")  # Helps bypass bot detection
@@ -43,7 +43,7 @@ def check_tiktok_email(email):
         login_button.click()
         
         time.sleep(10)  # Delay for potential CAPTCHA prompt
-        input("🚨 Solve CAPTCHA manually in browser, then press Enter to continue...")
+        input("Solve CAPTCHA manually in browser, then press Enter to continue...")
         time.sleep(5)  # Additional wait time
         
         # Check for error messages based on provided HTML structure
@@ -56,7 +56,7 @@ def check_tiktok_email(email):
     except Exception as e:
         return f"{email}:  Error - {str(e)}"
 
-# ✅ Load Emails from CSV (Ensure 'emails.csv' exists and has an 'email' column)
+# Load Emails from CSV (Ensure 'emails.csv' exists and has an 'email' column)
 try:
     df = pd.read_csv("emails.csv")
     email_list = df["email"].tolist()
@@ -65,7 +65,7 @@ except FileNotFoundError:
     driver.quit()
     exit()
 
-# ✅ Check Each Email and Store Results
+# Check Each Email and Store Results
 results = []
 for email in email_list:
     result = check_tiktok_email(email)
@@ -77,10 +77,10 @@ for email in email_list:
     print(f"Waiting {round(wait_time, 2)} seconds before checking the next email...")
     time.sleep(wait_time)
 
-# ✅ Save results to CSV
+# Save results to CSV
 results_df = pd.DataFrame(results, columns=["Result"])
 results_df.to_csv("results.csv", index=False)
 
-# ✅ Close browser driver
-print("✅ Process completed. Check 'results.csv' for output.")
+# Close browser driver
+print(" Process completed. Check 'results.csv' for output.")
 driver.quit()
